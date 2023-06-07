@@ -8,13 +8,18 @@ public class HelloWorldController:  ControllerBase
 {
     IHelloWorldService helloWorldService;
 
-    public HelloWorldController(IHelloWorldService helloWorld)
+    private readonly ILogger<HelloWorldController> _logger;
+
+    public HelloWorldController(IHelloWorldService helloWorld, ILogger<HelloWorldController> logger)
     {
         helloWorldService = helloWorld;
+        _logger = logger;
     }
 
+    [HttpGet]
     public IActionResult Get()
     {
+        _logger.LogInformation("This is the log for hello world!");
         return Ok(helloWorldService.GetHelloWorld());
     }
 }
